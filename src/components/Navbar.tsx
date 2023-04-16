@@ -1,7 +1,14 @@
+import { useState } from 'react';
 import Link from 'next/link'
 import Image from 'next/image';
 
 const Nav = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <nav>
       <div className="nav-container">
@@ -9,20 +16,23 @@ const Nav = () => {
           <Image src={"https://svgshare.com/i/sA3.svg"} width={50} height={50} />
           <h3>Ethereum Ecuador</h3>
         </div>
-        <ul>
+        <button className="menu-toggle" onClick={handleMenuToggle}>
+          {isMenuOpen ? 'Close' : 'Menu'}
+        </button>
+        <ul className={`menu ${isMenuOpen ? 'open' : ''}`}>
           <li>
             <Link href="/" className="nav-link">
-             Sobre Nosotro
+              Conócenos
             </Link>
           </li>
           <li>
             <Link href="/about" className="nav-link">
-            Calendario
+              Calendario
             </Link>
           </li>
           <li>
             <Link href="/contact" className="nav-link">
-           Tickets
+              Tickets
             </Link>
           </li>
         </ul>
@@ -47,16 +57,27 @@ const Nav = () => {
           display: flex;
           align-items: center;
         }
-        ul {
+        .menu-toggle {
+          display: none;
+          font-size: 18px;
+          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          border: none;
+          background: none;
+          color: #333;
+          cursor: pointer;
+        }
+        .menu {
           display: flex;
           list-style: none;
           margin: 0;
           padding: 0;
         }
-        li {
+        .menu li {
           margin-right: 20px;
         }
-        a {
+        .nav-link {
           color: #333;
           text-decoration: none;
           font-size: 18px;
@@ -64,37 +85,33 @@ const Nav = () => {
           text-transform: uppercase;
           letter-spacing: 1px;
         }
-        a:hover {
+        .nav-link:hover {
           text-decoration: underline;
         }
-        @media screen and (max-width: 50px) {
-          .logo-container {
+        @media (max-width: 500px) {
+          .menu-toggle {
+            display: block;
+          }
+          .menu {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border: 1px solid #333;
+            padding: 10px;
             flex-direction: column;
             align-items: center;
           }
-          h3 {
-            margin-top: 10px;
+          .menu.open {
+            display: flex;
           }
-          ul {
-            flex-direction: column;
-            align-items: center;
-            margin-top: 10px;
+          .menu li {
+            margin: 10px 0;
           }
-          li {
-            margin: 0;
-            margin-bottom: 10px;
-          }
-        }
-        @media only screen and (max-width: 500px) {
           .nav-container {
-            flex-direction: column;
-            align-items: flex-start;
-          }
-          .logo-container {
-            margin-bottom: 10px;
-          }
-          h3 {
-            margin: 0;
+            position: relative;
           }
         }
       `}</style>
