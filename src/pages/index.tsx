@@ -26,7 +26,7 @@ export default function Home() {
         <Schedule />
         <AboutComponent/>
         <Sponsors />
-        <Newsletter />
+       
       </main>
       <Footer />
     </>
